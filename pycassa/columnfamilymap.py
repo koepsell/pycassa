@@ -264,5 +264,5 @@ class ColumnFamilyMap(object):
         # It's slower, so we'll leave it out.
 
         if self.column_family.super:
-            return self.column_family.remove(instance.key, column=instance.super_column)
+            return self.column_family.remove(instance.key, super_column=instance.super_column)
         return self.column_family.remove(instance.key, column)

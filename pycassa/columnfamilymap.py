@@ -80,6 +80,9 @@ class ColumnFamilyMap(object):
         if 'columns' not in kwargs and not self.column_family.super and not self.raw_columns:
             kwargs['columns'] = self.columns.keys()
 
+        if self.column_family.super and 'super_column' not in kwargs and hasattr(self.cls,'super_column'):
+            kwargs['super_column'] = self.cls.super_column
+
         columns = self.column_family.get(key, *args, **kwargs)
 
         if self.column_family.super:
@@ -127,6 +130,10 @@ class ColumnFamilyMap(object):
         """
         if 'columns' not in kwargs and not self.column_family.super and not self.raw_columns:
             kwargs['columns'] = self.columns.keys()
+
+        if self.column_family.super and 'super_column' not in kwargs and hasattr(self.cls,'super_column'):
+            kwargs['super_column'] = self.cls.super_column
+
         kcmap = self.column_family.multiget(*args, **kwargs)
         ret = {}
         for key, columns in kcmap.iteritems():

@@ -202,6 +202,10 @@ class ColumnFamilyMap(object):
         """
         if 'columns' not in kwargs and not self.column_family.super and not self.raw_columns:
             kwargs['columns'] = self.columns.keys()
+        
+        if self.column_family.super and 'super_column' not in kwargs and hasattr(self.cls,'super_column'):
+            kwargs['super_column'] = self.cls.super_column
+
         for key, columns in self.column_family.get_range(*args, **kwargs):
             if self.column_family.super:
                 if 'super_column' not in kwargs:
